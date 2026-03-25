@@ -73,6 +73,7 @@ jobs:
       run: |
         kubectl get nodes || true
         kubectl delete svc --all -A || true
+        kubectl delete ingress --all -A || true
 
     - name: Wait for LoadBalancer cleanup
       if: github.event.inputs.action == 'destroy'
