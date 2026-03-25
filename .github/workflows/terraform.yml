@@ -61,11 +61,15 @@ jobs:
         cd terraform
         terraform apply -auto-approve
 
+    - name: Pre-clean Kubernetes (IMPORTANT)
+      run: |
+        kubectl delete svc --all || true
 
     - name: Terraform Destroy
       if: github.event.inputs.action == 'destroy'
       run: |
         cd terraform
+        terraform destroy -target=module.eks -auto-approve
         terraform destroy -auto-approve
 
     - name: Configure kubectl
