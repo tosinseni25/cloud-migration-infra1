@@ -61,10 +61,6 @@ jobs:
         cd terraform
         terraform apply -auto-approve
 
-    - name: Pre-clean Kubernetes (IMPORTANT)
-      run: |
-        kubectl delete svc --all || true
-
     - name: Terraform Destroy
       if: github.event.inputs.action == 'destroy'
       run: |
@@ -77,6 +73,11 @@ jobs:
         aws eks update-kubeconfig \
         --region us-east-1 \
         --name migration-eks-cluster
+
+    - name: Pre-clean Kubernetes (IMPORTANT)
+      run: |
+        kubectl get nodes
+        kubectl delete svc --all -A || true
 
     - name: Install Helm
       run: |
