@@ -1,4 +1,4 @@
-name: Terraform Pipeline
+name: Terraform Pipeline testing pipeline
 
 on:
   push:
